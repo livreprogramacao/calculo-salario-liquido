@@ -50,6 +50,7 @@ public class CalculadoraSalarioLiquidoTest {
 
         calculadora = new CalculadoraSalarioLiquido();
 
+        this.listaEsperada = new HashSet<>(10);
     }
 
     @Test
