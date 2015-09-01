@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.infoserver;
 
 import java.util.Set;
@@ -13,13 +8,16 @@ import java.util.Set;
  */
 class Funcionario {
 
+    public static final double SALARIO_MINIMO_NACIONAL_2015 = 788.00;
+
     public Funcionario() {
     }
 
-    public Funcionario(long id_cliente, String nm_cliente, double vl_salario_bruto) {
+    public Funcionario(long id_cliente, String nm_cliente, double vl_salario_bruto, Set<Desconto> descontos) {
         this.id_cliente = id_cliente;
         this.nm_cliente = nm_cliente;
         this.vl_salario_bruto = vl_salario_bruto;
+        this.descontos = descontos;
     }
 
     @Override
@@ -49,10 +47,9 @@ class Funcionario {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "id_cliente=" + id_cliente + ", nm_cliente=" + nm_cliente + ", vl_salario_bruto=" + vl_salario_bruto + '}';
+        return "Funcionario{" + "id_cliente=" + id_cliente + ", nm_cliente=" + nm_cliente + ", vl_salario_bruto=" + vl_salario_bruto + ", descontos=" + descontos + '}';
     }
 
-    
     private long id_cliente;
 
     /**
@@ -112,8 +109,8 @@ class Funcionario {
     public void setVl_salario_bruto(double vl_salario_bruto) {
         this.vl_salario_bruto = vl_salario_bruto;
     }
-    
-        private Set<Desconto> descontos;
+
+    private Set<Desconto> descontos;
 
     /**
      * Get the value of descontos
@@ -132,6 +129,5 @@ class Funcionario {
     public void setDescontos(Set<Desconto> descontos) {
         this.descontos = descontos;
     }
-
 
 }

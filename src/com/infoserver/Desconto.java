@@ -6,6 +6,47 @@ package com.infoserver;
  */
 class Desconto {
 
+    public Desconto() {
+    }
+
+    public Desconto(long id_cliente, long id_desconto, double vl_desconto) {
+        this.id_cliente = id_cliente;
+        this.id_desconto = id_desconto;
+        this.vl_desconto = vl_desconto;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + (int) (this.id_desconto ^ (this.id_desconto >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Desconto other = (Desconto) obj;
+        if (this.id_desconto != other.id_desconto) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Desconto{" + "id_desconto=" + id_desconto + ", id_cliente=" + id_cliente + ", vl_desconto=" + vl_desconto + '}';
+    }
+    
+    
+
     private long id_desconto;
 
     /**
