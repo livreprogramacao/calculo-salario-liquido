@@ -24,7 +24,7 @@ public class CalculadoraSalarioLiquidoTest {
     private Set<Funcionario> funcionarios;
     private HashSet<Desconto> descontos;
     private CalculadoraSalarioLiquido calculadora;
-    private Set<Funcionario> listaEsperada;
+    private Set<Funcionario> listaEsperada = new HashSet<>(10);
 
     @Before
     public void setUp() {
@@ -79,9 +79,22 @@ public class CalculadoraSalarioLiquidoTest {
     }
 
     @Test
-    public void testApresentarFuncionariosOrdenadoPorSalárioLíquidoDecrescente() {
-        List<Funcionario> l = Arrays.asList(funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva);
-        listaEsperada.addAll(l);
-        assertEquals("Verifica se a lista ordenda esta correta com o cenário: apresentar a relação ordenada por salário líquido de modo decrescente", listaEsperada, calculadora.listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente());
+    public void testListarFuncionariosOrdenadoPorSalárioLíquidoDecrescente() {
+        listaEsperada.clear();
+        listaEsperada.addAll(Arrays.asList(funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva));
+        for (Funcionario funcionario : listaEsperada) {
+            System.out.println("Funcionario: " + funcionario.getNm_cliente() + ", salario liquido: " + funcionario.getSalarioLiquido());
+        }
+        
+        funcionarios.clear();
+        funcionarios.addAll(Arrays.asList(funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva));
+        for (Funcionario funcionario : listaEsperadaro) {
+            System.out.println("Funcionario: " + funcionario.getNm_cliente() + ", salario liquido: " + funcionario.getSalarioLiquido());
+        }
+        
+        Set<Funcionario> retorno = calculadora.listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente(funcionarios);
+        
+        assertEquals("Verifica se a lista ordenda esta correta com o cenário: apresentar a relação ordenada por salário líquido de modo decrescente", listaEsperada, retorno);
+
     }
 }

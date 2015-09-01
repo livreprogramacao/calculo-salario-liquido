@@ -110,7 +110,7 @@ class Funcionario {
         this.vl_salario_bruto = vl_salario_bruto;
     }
 
-        private double salarioLiquido;
+    private double salarioLiquido;
 
     /**
      * Get the value of salarioLiquido
@@ -118,11 +118,17 @@ class Funcionario {
      * @return the value of salarioLiquido
      */
     public double getSalarioLiquido() {
+        
         double totalDescontos = 0;
-        for (Desconto desconto : descontos) {
-            totalDescontos += desconto.getVl_desconto();
+        
+        if (this.descontos != null && !this.descontos.isEmpty()) {
+            for (Desconto desconto : descontos) {
+                totalDescontos += desconto.getVl_desconto();
+            }
         }
+        
         salarioLiquido = getSalarioLiquido() - totalDescontos;
+        
         return salarioLiquido;
     }
 
@@ -135,7 +141,6 @@ class Funcionario {
         this.salarioLiquido = salarioLiquido;
     }
 
-    
     private Set<Desconto> descontos;
 
     /**

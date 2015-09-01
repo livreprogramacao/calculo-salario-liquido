@@ -16,10 +16,6 @@ class CalculadoraSalarioLiquido {
 
     public void executa() {
         funcionarios = listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente(new HashSet<Funcionario>(10));
-        
-        for (Funcionario funcionario : funcionarios) {
-            System.out.println("Funcionario: " + funcionario.getNm_cliente() + ", salario liquido: " + funcionario.getSalarioLiquido());
-        }
     }
 
     /**
@@ -31,7 +27,7 @@ class CalculadoraSalarioLiquido {
      * decrescente.
      *
      */
-    private Set<Funcionario> listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente(Set<Funcionario> c) {
+    public Set<Funcionario> listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente(Set<Funcionario> c) {
         return c;
     }
 
