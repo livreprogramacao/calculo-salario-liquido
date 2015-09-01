@@ -8,7 +8,6 @@ package com.infoserver;
 import static com.infoserver.Funcionario.SALARIO_MINIMO_NACIONAL_2015;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,9 +28,9 @@ public class CalculadoraSalarioLiquidoTest {
     @Before
     public void setUp() {
         funcionarioJoaoDaSilva = new Funcionario(1, "Joao da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioMariaDaSilva = new Funcionario(1, "Maria da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioJesusDaSilva = new Funcionario(1, "Jesus da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioMartaDaSilva = new Funcionario(1, "Marta da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
+        funcionarioMariaDaSilva = new Funcionario(2, "Maria da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
+        funcionarioJesusDaSilva = new Funcionario(3, "Jesus da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
+        funcionarioMartaDaSilva = new Funcionario(4, "Marta da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
 
         descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
@@ -58,13 +57,13 @@ public class CalculadoraSalarioLiquidoTest {
         assertNotNull("A lista de descontos do clientes tem que estar preenchida", funcionarioJoaoDaSilva.getDescontos());
         assertEquals("A lista foi criada com sete elementos.", 7, funcionarioJoaoDaSilva.getDescontos().size());
 
-        System.out.println("Lista os descontos dos funcionarios existentes.");
-        for (Funcionario funcionario : funcionarios) {
-            System.out.println("Funcionario: " + funcionario);
-            for (Desconto desconto : funcionario.getDescontos()) {
-                System.out.println("Tem este desconto: " + desconto);
-            }
-        }
+//        System.out.println("Lista os descontos dos funcionarios existentes.");
+//        for (Funcionario funcionario : funcionarios) {
+//            System.out.println("Funcionario: " + funcionario);
+//            for (Desconto desconto : funcionario.getDescontos()) {
+//                System.out.println("Tem este desconto: " + desconto);
+//            }
+//        }
     }
 
     @Test
@@ -72,29 +71,35 @@ public class CalculadoraSalarioLiquidoTest {
 
         assertNotNull("A lista de funcionarios tem que estar preechida!", funcionarios);
 
-        System.out.println("Lista os funcionarios existentes.");
-        for (Funcionario funcionario : funcionarios) {
-            System.out.println("Funcionario: " + funcionario);
-        }
+//        System.out.println("Lista os funcionarios existentes.");
+//        for (Funcionario funcionario : funcionarios) {
+//            System.out.println("Funcionario: " + funcionario);
+//        }
     }
 
     @Test
     public void testListarFuncionariosOrdenadoPorSalárioLíquidoDecrescente() {
         listaEsperada.clear();
-        listaEsperada.addAll(Arrays.asList(funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva));
+        listaEsperada.add(funcionarioJoaoDaSilva);
+        listaEsperada.add(funcionarioMariaDaSilva);
+        listaEsperada.add(funcionarioJesusDaSilva);
+        listaEsperada.add(funcionarioMartaDaSilva);
         for (Funcionario funcionario : listaEsperada) {
-            System.out.println("Funcionario: " + funcionario.getNm_cliente() + ", salario liquido: " + funcionario.getSalarioLiquido());
+            System.out.println(
+                    "Funcionario: " + funcionario.getNm_cliente() +
+                    ", salario liquido: " + funcionario.getSalarioLiquido());
         }
-        
-        funcionarios.clear();
-        funcionarios.addAll(Arrays.asList(funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva));
-        for (Funcionario funcionario : listaEsperadaro) {
-            System.out.println("Funcionario: " + funcionario.getNm_cliente() + ", salario liquido: " + funcionario.getSalarioLiquido());
+
+        Set<Funcionario> listaFuncionariosOrdenadoPorSalárioLíquidoDecrescente = calculadora.executa();
+        for (Funcionario funcionario : funcionarios) {
+            System.out.println(
+                    "Funcionario: " + funcionario.getNm_cliente() + 
+                    ", salario liquido: " + funcionario.getSalarioLiquido());
         }
-        
-        Set<Funcionario> retorno = calculadora.listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente(funcionarios);
-        
-        assertEquals("Verifica se a lista ordenda esta correta com o cenário: apresentar a relação ordenada por salário líquido de modo decrescente", listaEsperada, retorno);
+
+        assertEquals("Verifica se a lista ordenda esta correta com o cenário: apresentar a relação ordenada por salário líquido de modo decrescente",
+                listaEsperada,
+                listaFuncionariosOrdenadoPorSalárioLíquidoDecrescente);
 
     }
 }

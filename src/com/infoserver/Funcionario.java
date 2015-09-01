@@ -127,7 +127,7 @@ class Funcionario {
             }
         }
         
-        salarioLiquido = getSalarioLiquido() - totalDescontos;
+        salarioLiquido = this.getVl_salario_bruto() - totalDescontos;
         
         return salarioLiquido;
     }
