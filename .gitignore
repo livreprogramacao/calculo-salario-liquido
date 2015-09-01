@@ -1,0 +1,42 @@
+#   /home/tux/workspace/bitbucket.org/empreender/.gitignore
+#
+#
+#   Ignore directories by entering the directory name into the file (with a slash appended):
+nbproject/
+.settings
+.nbattrs
+.project
+RemoteSystemsTempFiles/
+target/
+dist/
+tmp/
+build/
+*.class
+.metadata/
+.project/
+Servers/
+target/
+dist/
+bin/
+lib/
+/waretech.com.br/LeanServiceECBComponentWithAjax/nbproject/private/
+/lp/android/AndroidApplicationFiscal/gen/
+
+#    Ignore files
+nb-configuration.xml
+*.class
+*.tar.gz
+*.*~
+*.swo
+*.swp
+*.commandLog
+*.snapshot
+flashe-appframework/.settings/org.eclipse.core.resources.prefs
+flashe-domain-model/.settings/org.eclipse.jpt.core.prefs
+flashe-domain-model/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml
+flashe-domain-model/.settings/org.eclipse.wst.common.project.facet.core.xml
+flashe-pom-root/flashe-ear-javaee7/.settings/*
+flashe-pom-root/flashe-webapp-javaee7/src/main/webapp/resources/pdf/boleto.pdf
+src/main/resources/META-INF/.persistence.xml.swp
+/home/tux/j/workspace/bitbucket.org/empreender/lp/dhireito/dist/lib/dhireito.jar
+docs/umlet/*.png
