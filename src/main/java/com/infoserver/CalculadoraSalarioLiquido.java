@@ -13,11 +13,12 @@ import java.util.Set;
  *
  * @author tux
  */
-class CalculadoraSalarioLiquido {
+public class CalculadoraSalarioLiquido {
 
-    public CalculadoraSalarioLiquido() {
-    }
-
+    /**
+     *
+     * @return
+     */
     public List<Funcionario> executa() {
         Funcionario funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva, funcionarioMateusDaSilva;
         funcionarioJoaoDaSilva = new Funcionario(1, "MalcomX", SALARIO_MINIMO_NACIONAL_2015, null);
@@ -28,37 +29,31 @@ class CalculadoraSalarioLiquido {
 
         Set<Desconto> descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 10L, 78.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 11L, 79.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 12L, 70.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 13L, 76.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 14L, 37.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 15L, 17.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 16L, 57.88)
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 16L, 400.00)
         ));
         funcionarioJoaoDaSilva.setDescontos(descontos);
 
         descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 88.00)
+                new Desconto(funcionarioMariaDaSilva.getId_cliente(), 1L, 88.00)
         ));
         funcionarioMariaDaSilva.setDescontos(descontos);
 
         descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 188.00)
+                new Desconto(funcionarioMariaDaSilva.getId_cliente(), 1L, 188.00)
         ));
         funcionarioMariaDaSilva.setDescontos(descontos);
 
         descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 288.00)
+                new Desconto(funcionarioJesusDaSilva.getId_cliente(), 1L, 288.00)
         ));
         funcionarioJesusDaSilva.setDescontos(descontos);
 
         descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 388.00)
+                new Desconto(funcionarioMartaDaSilva.getId_cliente(), 1L, 388.00)
         ));
         funcionarioMartaDaSilva.setDescontos(descontos);
 
@@ -70,7 +65,7 @@ class CalculadoraSalarioLiquido {
         funcionarios.add(funcionarioMateusDaSilva);
         Collections.shuffle(funcionarios);
 
-        return listarFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor(funcionarios);
+        return listarFuncionarios(funcionarios);
     }
 
     /**
@@ -82,7 +77,7 @@ class CalculadoraSalarioLiquido {
      * decrescente.
      *
      */
-    private List<Funcionario> listarFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor(List<Funcionario> c) {
+    private List<Funcionario> listarFuncionarios(List<Funcionario> c) {
 
         if (c == null || c.isEmpty()) {
             return c;

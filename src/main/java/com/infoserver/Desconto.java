@@ -4,7 +4,7 @@ package com.infoserver;
  *
  * @author tux
  */
-class Desconto {
+public class Desconto {
 
     public Desconto() {
     }
@@ -44,8 +44,6 @@ class Desconto {
     public String toString() {
         return "Desconto{" + "id_desconto=" + id_desconto + ", id_cliente=" + id_cliente + ", vl_desconto=" + vl_desconto + '}';
     }
-    
-    
 
     private long id_desconto;
 

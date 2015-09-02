@@ -6,11 +6,14 @@
 package com.infoserver;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -32,17 +35,19 @@ public class FuncionarioDAO {
                     null
             );
 
-            String selectFuncionarioDesconto = "select id_desconto, vl_desconto from Desconto where id_cliente = :id_cliente";
+            String selectFuncionarioDesconto = "select id_desconto, vl_desconto from Desconto where id_cliente = ?";
             PreparedStatement pstm1 = getConn().prepareStatement(selectFuncionarioDesconto);
+            pstm.setLong(1, funcionario.getId_cliente());
             ResultSet rs1 = pstm1.executeQuery();
 
-            List<Desconto> descontos = new ArrayList<>();
+            Set<Desconto> descontos = new HashSet<>();
             while (rs1.next()) {
-                Desconto d = new Desconto(
+                Desconto desconto = new Desconto(
                         funcionario.getId_cliente(),
                         rs1.getInt("id_desconto"),
                         rs1.getDouble("vl_desconto")
                 );
+                descontos.add(desconto);
             }
             funcionario.setDescontos(descontos);
             funcionarios.add(funcionario);
@@ -51,8 +56,9 @@ public class FuncionarioDAO {
         return funcionarios;
     }
 
-    private Connection getConn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Connection getConn() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        return (Connection) DriverManager.getConnection("jdbc:mysql://localhost/jsf_curso", "root", "root");
     }
 
 }

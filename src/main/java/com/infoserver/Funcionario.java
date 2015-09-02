@@ -6,7 +6,7 @@ import java.util.Set;
  *
  * @author tux
  */
-class Funcionario {
+public class Funcionario {
 
     public static final double SALARIO_MINIMO_NACIONAL_2015 = 788.00;
 
@@ -50,7 +50,7 @@ class Funcionario {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "id_cliente=" + id_cliente + ", nm_cliente=" + nm_cliente + ", vl_salario_bruto=" + vl_salario_bruto + ", salarioLiquido=" + salarioLiquido + ", descontos=" + descontos + '}';
+        return "Funcionario{\n" + "id_cliente=" + id_cliente + ", \nnm_cliente=" + nm_cliente + ", \nvl_salario_bruto=" + vl_salario_bruto + ", \nsalarioLiquido=" + salarioLiquido + ", \ndescontos=" + descontos + "\n" + '}';
     }
 
     private long id_cliente;
