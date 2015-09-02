@@ -6,12 +6,15 @@
 package com.infoserver;
 
 import static com.infoserver.Funcionario.SALARIO_MINIMO_NACIONAL_2015;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -23,7 +26,7 @@ public class CalculadoraSalarioLiquidoTest {
     private Set<Funcionario> funcionarios;
     private HashSet<Desconto> descontos;
     private CalculadoraSalarioLiquido calculadora;
-    private Set<Funcionario> listaEsperada = new HashSet<>(10);
+    private List<Funcionario> listaEsperada;
 
     @Before
     public void setUp() {
@@ -34,13 +37,13 @@ public class CalculadoraSalarioLiquidoTest {
 
         descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 10L, 7.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 11L, 7.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 12L, 7.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 13L, 7.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 14L, 7.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 15L, 7.88),
-                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 16L, 7.88)
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 10L, 78.88),
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 11L, 79.88),
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 12L, 70.88),
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 13L, 76.88),
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 14L, 37.88),
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 15L, 17.88),
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 16L, 57.88)
         ));
         funcionarioJoaoDaSilva.setDescontos(descontos);
 
@@ -49,7 +52,7 @@ public class CalculadoraSalarioLiquidoTest {
 
         calculadora = new CalculadoraSalarioLiquido();
 
-        this.listaEsperada = new HashSet<>(10);
+        this.listaEsperada = new ArrayList<>(10);
     }
 
     @Test
@@ -78,28 +81,30 @@ public class CalculadoraSalarioLiquidoTest {
     }
 
     @Test
-    public void testListarFuncionariosOrdenadoPorSalárioLíquidoDecrescente() {
+    public void testListarFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor() {
         listaEsperada.clear();
-        listaEsperada.add(funcionarioJoaoDaSilva);
         listaEsperada.add(funcionarioMariaDaSilva);
-        listaEsperada.add(funcionarioJesusDaSilva);
         listaEsperada.add(funcionarioMartaDaSilva);
+        listaEsperada.add(funcionarioJesusDaSilva);
+        listaEsperada.add(funcionarioJoaoDaSilva);
+        System.out.println("\n===================> listaEsperada");
         for (Funcionario funcionario : listaEsperada) {
             System.out.println(
-                    "Funcionario: " + funcionario.getNm_cliente() +
-                    ", salario liquido: " + funcionario.getSalarioLiquido());
+                    "Funcionario: " + funcionario.getNm_cliente()
+                    + ", salario liquido: " + funcionario.getSalarioLiquido());
         }
 
-        Set<Funcionario> listaFuncionariosOrdenadoPorSalárioLíquidoDecrescente = calculadora.executa();
-        for (Funcionario funcionario : funcionarios) {
+        System.out.println("\n===================> listaFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor");
+        List<Funcionario> listaFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor = calculadora.executa();
+        for (Funcionario funcionario : listaFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor) {
             System.out.println(
-                    "Funcionario: " + funcionario.getNm_cliente() + 
-                    ", salario liquido: " + funcionario.getSalarioLiquido());
+                    "Funcionario: " + funcionario.getNm_cliente()
+                    + ", salario liquido: " + funcionario.getSalarioLiquido());
         }
 
         assertEquals("Verifica se a lista ordenda esta correta com o cenário: apresentar a relação ordenada por salário líquido de modo decrescente",
                 listaEsperada,
-                listaFuncionariosOrdenadoPorSalárioLíquidoDecrescente);
+                listaFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor);
 
     }
 }

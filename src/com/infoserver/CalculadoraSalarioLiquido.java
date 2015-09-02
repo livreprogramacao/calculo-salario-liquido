@@ -18,12 +18,13 @@ class CalculadoraSalarioLiquido {
     public CalculadoraSalarioLiquido() {
     }
 
-    public Set<Funcionario> executa() {
-        Funcionario funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva;
-        funcionarioJoaoDaSilva = new Funcionario(1, "Joao da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
+    public List<Funcionario> executa() {
+        Funcionario funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva, funcionarioMateusDaSilva;
+        funcionarioJoaoDaSilva = new Funcionario(1, "MalcomX", SALARIO_MINIMO_NACIONAL_2015, null);
         funcionarioMariaDaSilva = new Funcionario(2, "Maria da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
         funcionarioJesusDaSilva = new Funcionario(3, "Jesus da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
         funcionarioMartaDaSilva = new Funcionario(4, "Marta da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
+        funcionarioMateusDaSilva = new Funcionario(4, "Mateus da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
 
         Set<Desconto> descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
@@ -37,13 +38,39 @@ class CalculadoraSalarioLiquido {
         ));
         funcionarioJoaoDaSilva.setDescontos(descontos);
 
-        
-        Set<Funcionario> funcionarios = new HashSet<>(10);
+        descontos = new HashSet<>(10);
+        descontos.addAll(Arrays.asList(
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 88.00)
+        ));
+        funcionarioMariaDaSilva.setDescontos(descontos);
+
+        descontos = new HashSet<>(10);
+        descontos.addAll(Arrays.asList(
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 188.00)
+        ));
+        funcionarioMariaDaSilva.setDescontos(descontos);
+
+        descontos = new HashSet<>(10);
+        descontos.addAll(Arrays.asList(
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 288.00)
+        ));
+        funcionarioJesusDaSilva.setDescontos(descontos);
+
+        descontos = new HashSet<>(10);
+        descontos.addAll(Arrays.asList(
+                new Desconto(funcionarioJoaoDaSilva.getId_cliente(), 1L, 388.00)
+        ));
+        funcionarioMartaDaSilva.setDescontos(descontos);
+
+        List<Funcionario> funcionarios = new ArrayList<>();
         funcionarios.add(funcionarioJoaoDaSilva);
         funcionarios.add(funcionarioMariaDaSilva);
         funcionarios.add(funcionarioJesusDaSilva);
         funcionarios.add(funcionarioMartaDaSilva);
-        return listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente(funcionarios);
+        funcionarios.add(funcionarioMateusDaSilva);
+        Collections.shuffle(funcionarios);
+
+        return listarFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor(funcionarios);
     }
 
     /**
@@ -55,23 +82,22 @@ class CalculadoraSalarioLiquido {
      * decrescente.
      *
      */
-    private Set<Funcionario> listarFuncionariosOrdenadoPorSalárioLíquidoDecrescente(Set<Funcionario> c) {
+    private List<Funcionario> listarFuncionariosOrdenadoPorSalárioLíquidoDecrescenteDoMaiorParaMenor(List<Funcionario> c) {
 
         if (c == null || c.isEmpty()) {
             return c;
         }
-        
-        List<Funcionario> lista = new ArrayList<>();
-        lista.addAll(c);
-        
+
         Comparator comparator = new Comparator<Funcionario>() {
             @Override
             public int compare(Funcionario f1, Funcionario f2) {
-                return Double.compare(f2.getSalarioLiquido(), f1.getSalarioLiquido());
+                Double d2 = f2.getSalarioLiquido();
+                return d2.compareTo(f1.getSalarioLiquido());
             }
         };
-        Collections.sort(lista, comparator);
-        
+
+        Collections.sort(c, comparator);
+
         return c;
     }
 

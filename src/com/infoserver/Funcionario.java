@@ -11,9 +11,12 @@ class Funcionario {
     public static final double SALARIO_MINIMO_NACIONAL_2015 = 788.00;
 
     public Funcionario() {
+        this.salarioLiquido = Double.valueOf(0);
     }
 
     public Funcionario(long id_cliente, String nm_cliente, double vl_salario_bruto, Set<Desconto> descontos) {
+        super();
+        this.salarioLiquido = Double.valueOf(0);
         this.id_cliente = id_cliente;
         this.nm_cliente = nm_cliente;
         this.vl_salario_bruto = vl_salario_bruto;
@@ -47,7 +50,7 @@ class Funcionario {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "id_cliente=" + id_cliente + ", nm_cliente=" + nm_cliente + ", vl_salario_bruto=" + vl_salario_bruto + ", descontos=" + descontos + '}';
+        return "Funcionario{" + "id_cliente=" + id_cliente + ", nm_cliente=" + nm_cliente + ", vl_salario_bruto=" + vl_salario_bruto + ", salarioLiquido=" + salarioLiquido + ", descontos=" + descontos + '}';
     }
 
     private long id_cliente;
@@ -110,7 +113,7 @@ class Funcionario {
         this.vl_salario_bruto = vl_salario_bruto;
     }
 
-    private double salarioLiquido;
+    private Double salarioLiquido;
 
     /**
      * Get the value of salarioLiquido
@@ -118,17 +121,17 @@ class Funcionario {
      * @return the value of salarioLiquido
      */
     public double getSalarioLiquido() {
-        
+
         double totalDescontos = 0;
-        
+
         if (this.descontos != null && !this.descontos.isEmpty()) {
             for (Desconto desconto : descontos) {
                 totalDescontos += desconto.getVl_desconto();
             }
         }
-        
+
         salarioLiquido = this.getVl_salario_bruto() - totalDescontos;
-        
+
         return salarioLiquido;
     }
 
