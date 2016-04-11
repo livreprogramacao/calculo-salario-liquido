@@ -127,7 +127,7 @@ public class Funcionario {
      *
      * @return the value of salarioLiquido
      */
-    public Double getSalarioLiquido() {
+    public double getSalarioLiquido() {
 
         double totalDescontos = 0;
 
