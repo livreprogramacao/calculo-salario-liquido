@@ -2,7 +2,6 @@ package br.org.ccee.calculosalario.funcionario.boundary;
 
 import br.org.ccee.calculosalario.desconto.entity.Desconto;
 import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
-import static br.org.ccee.calculosalario.funcionario.entity.Funcionario.SALARIO_MINIMO_NACIONAL_2015;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,12 +21,48 @@ public class CalculadoraSalarioLiquido {
      * @return
      */
     public List<Funcionario> executa() {
+
+        List<Funcionario> funcionarios;
+        funcionarios = criarFuncionarios();
+
+        return ordernar(funcionarios);
+    }
+
+    /**
+     * Desenvolva um metodo para cálculo do salário liquido dos funcionários.
+     * <p>
+     * (salário líquido = salário bruto – (soma dos descontos)).
+     * <p>
+     * O metodo deve apresentar a relação ordenada por salário líquido de modo
+     * decrescente.
+     *
+     */
+    private List<Funcionario> ordernar(List<Funcionario> c) {
+
+        if (c == null || c.isEmpty()) {
+            return c;
+        }
+
+        Comparator comparator = new Comparator<Funcionario>() {
+            @Override
+            public int compare(Funcionario f1, Funcionario f2) {
+                Double d2 = f2.getSalarioLiquido();
+                return d2.compareTo(f1.getSalarioLiquido());
+            }
+        };
+
+        Collections.sort(c, comparator);
+
+        return c;
+    }
+
+    private List<Funcionario> criarFuncionarios() {
         Funcionario funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva, funcionarioMateusDaSilva;
-        funcionarioJoaoDaSilva = new Funcionario(1, "MalcomX", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioMariaDaSilva = new Funcionario(2, "Maria da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioJesusDaSilva = new Funcionario(3, "Jesus da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioMartaDaSilva = new Funcionario(4, "Marta da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioMateusDaSilva = new Funcionario(4, "Mateus da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
+        funcionarioJoaoDaSilva = new Funcionario(1, "MalcomX");
+        funcionarioMariaDaSilva = new Funcionario(2, "Maria da Silva");
+        funcionarioJesusDaSilva = new Funcionario(3, "Jesus da Silva");
+        funcionarioMartaDaSilva = new Funcionario(4, "Marta da Silva");
+        funcionarioMateusDaSilva = new Funcionario(4, "Mateus da Silva");
 
         Set<Desconto> descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(
@@ -60,6 +95,7 @@ public class CalculadoraSalarioLiquido {
         funcionarioMartaDaSilva.setDescontos(descontos);
 
         List<Funcionario> funcionarios = new ArrayList<>();
+
         funcionarios.add(funcionarioJoaoDaSilva);
         funcionarios.add(funcionarioMariaDaSilva);
         funcionarios.add(funcionarioJesusDaSilva);
@@ -67,35 +103,7 @@ public class CalculadoraSalarioLiquido {
         funcionarios.add(funcionarioMateusDaSilva);
         Collections.shuffle(funcionarios);
 
-        return ordernar(funcionarios);
-    }
-
-    /**
-     * Desenvolva um metodo para cálculo do salário liquido dos funcionários.
-     * <p>
-     * (salário líquido = salário bruto – (soma dos descontos)).
-     * <p>
-     * O metodo deve apresentar a relação ordenada por salário líquido de modo
-     * decrescente.
-     *
-     */
-    private List<Funcionario> ordernar(List<Funcionario> c) {
-
-        if (c == null || c.isEmpty()) {
-            return c;
-        }
-
-        Comparator comparator = new Comparator<Funcionario>() {
-            @Override
-            public int compare(Funcionario f1, Funcionario f2) {
-                Double d2 = f2.getSalarioLiquido();
-                return d2.compareTo(f1.getSalarioLiquido());
-            }
-        };
-
-        Collections.sort(c, comparator);
-
-        return c;
+        return funcionarios;
     }
 
 }

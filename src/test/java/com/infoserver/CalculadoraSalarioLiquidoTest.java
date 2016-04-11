@@ -5,7 +5,10 @@
  */
 package com.infoserver;
 
-import static com.infoserver.Funcionario.SALARIO_MINIMO_NACIONAL_2015;
+import br.org.ccee.calculosalario.desconto.entity.Desconto;
+import br.org.ccee.calculosalario.funcionario.boundary.CalculadoraSalarioLiquido;
+import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
+import static br.org.ccee.calculosalario.funcionario.entity.Funcionario.SALARIO_MINIMO_NACIONAL_2015;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -30,10 +33,10 @@ public class CalculadoraSalarioLiquidoTest {
 
     @Before
     public void setUp() {
-        funcionarioJoaoDaSilva = new Funcionario(1, "Joao da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioMariaDaSilva = new Funcionario(2, "Maria da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioJesusDaSilva = new Funcionario(3, "Jesus da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
-        funcionarioMartaDaSilva = new Funcionario(4, "Marta da Silva", SALARIO_MINIMO_NACIONAL_2015, null);
+        funcionarioJoaoDaSilva = new Funcionario(1, "Joao da Silva", SALARIO_MINIMO_NACIONAL_2015);
+        funcionarioMariaDaSilva = new Funcionario(2, "Maria da Silva", SALARIO_MINIMO_NACIONAL_2015);
+        funcionarioJesusDaSilva = new Funcionario(3, "Jesus da Silva", SALARIO_MINIMO_NACIONAL_2015);
+        funcionarioMartaDaSilva = new Funcionario(4, "Marta da Silva", SALARIO_MINIMO_NACIONAL_2015);
 
         descontos = new HashSet<>(10);
         descontos.addAll(Arrays.asList(

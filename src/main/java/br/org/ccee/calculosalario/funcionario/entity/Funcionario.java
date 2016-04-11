@@ -1,6 +1,7 @@
 package br.org.ccee.calculosalario.funcionario.entity;
 
 import br.org.ccee.calculosalario.desconto.entity.Desconto;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -12,16 +13,20 @@ public class Funcionario {
     public static final double SALARIO_MINIMO_NACIONAL_2015 = 788.00;
 
     public Funcionario() {
-        this.salarioLiquido = Double.valueOf(0);
+        super();
+        this.salarioLiquido = 0.00;
+        this.vl_salario_bruto = SALARIO_MINIMO_NACIONAL_2015;
+        this.descontos = new HashSet<>();
     }
 
-    public Funcionario(long id_cliente, String nm_cliente, double vl_salario_bruto, Set<Desconto> descontos) {
-        super();
-        this.salarioLiquido = Double.valueOf(0);
-        this.id_cliente = id_cliente;
-        this.nm_cliente = nm_cliente;
-        this.vl_salario_bruto = vl_salario_bruto;
-        this.descontos = descontos;
+    public Funcionario(long id, String nome) {
+        this();
+        this.id_cliente = id;
+        this.nm_cliente = nome;
+    }
+    public Funcionario(long id, String nome, double salarioBruto) {
+        this(id, nome);
+        this.vl_salario_bruto = salarioBruto;
     }
 
     @Override

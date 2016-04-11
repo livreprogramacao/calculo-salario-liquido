@@ -28,8 +28,7 @@ public class FuncionarioDAO {
             Funcionario funcionario = new Funcionario(
                     rs.getInt("id_cliente"),
                     rs.getString("nm_cliente"),
-                    rs.getDouble("vl_salario_bruto"),
-                    null
+                    rs.getDouble("vl_salario_bruto")
             );
 
             String selectFuncionarioDesconto = "select id_desconto, vl_desconto from Desconto where id_cliente = ?";
