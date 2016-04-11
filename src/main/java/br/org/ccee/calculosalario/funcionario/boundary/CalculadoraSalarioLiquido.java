@@ -90,8 +90,7 @@ public class CalculadoraSalarioLiquido implements Calculadora {
     }
 
     private void ordenar() {
-        Comparator<? super Funcionario> comparator = (f1, f2) -> Double.compare(f2.getSalarioLiquido(), f1.getSalarioLiquido());
-        Collections.sort(funcionarios, comparator);
+        funcionarios.sort((f1, f2) -> Double.compare(f2.getSalarioLiquido(), f1.getSalarioLiquido()));
     }
 
 }
