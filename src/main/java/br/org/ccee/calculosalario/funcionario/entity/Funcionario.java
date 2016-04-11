@@ -131,9 +131,8 @@ public class Funcionario {
         double totalDescontos = 0;
 
         if (this.descontos != null && !this.descontos.isEmpty()) {
-            for (Desconto desconto : descontos) {
-                totalDescontos += desconto.getVl_desconto();
-            }
+            totalDescontos = descontos.stream().map(
+                    (desconto) -> desconto.getVl_desconto()).reduce(totalDescontos, (accumulator, _item) -> accumulator + _item);
         }
 
         salarioLiquido = this.getVl_salario_bruto() - totalDescontos;
