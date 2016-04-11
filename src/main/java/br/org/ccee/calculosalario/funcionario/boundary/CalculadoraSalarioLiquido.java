@@ -7,6 +7,7 @@ import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -80,11 +81,17 @@ public class CalculadoraSalarioLiquido implements Calculadora {
             f.setDescontos(funcionarioDao.buscarDescontos(f));
         });
 
+        ordenar();
         listar();
     }
 
     private void listar() {
         funcionarios.forEach(f -> System.out.println(f));
+    }
+
+    private void ordenar() {
+        Comparator<? super Funcionario> comparator = (f1, f2) -> f2.getSalarioLiquido().compareTo(f1.getSalarioLiquido());
+        Collections.sort(funcionarios, comparator);
     }
 
 }
