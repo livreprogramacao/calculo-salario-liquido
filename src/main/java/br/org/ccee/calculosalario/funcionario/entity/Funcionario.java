@@ -56,7 +56,7 @@ public class Funcionario {
 
     @Override
     public String toString() {
-        return "Funcionario{\n" + "id_cliente=" + id_cliente + ", \nnm_cliente=" + nm_cliente + ", \nvl_salario_bruto=" + vl_salario_bruto + ", \nsalarioLiquido=" + salarioLiquido + ", \ndescontos=" + descontos + "\n" + '}';
+        return "Funcionario " + nm_cliente + ", salario liquido " + salarioLiquido;
     }
 
     private long id_cliente;

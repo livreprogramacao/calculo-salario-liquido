@@ -37,11 +37,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        List<Funcionario> funcionarios = new CalculadoraSalarioLiquido().executa();
-
-        for (Funcionario funcionario : funcionarios) {
-            System.out.println(funcionario);
-        }
+        new CalculadoraSalarioLiquido().calcular();
     }
 
 }

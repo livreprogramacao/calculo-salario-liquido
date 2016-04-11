@@ -1,11 +1,12 @@
 package br.org.ccee.calculosalario.funcionario.boundary;
 
+import br.org.ccee.boundary.Calculadora;
 import br.org.ccee.calculosalario.desconto.entity.Desconto;
+import br.org.ccee.calculosalario.funcionario.control.ConsumerFuncionario;
 import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,49 +15,16 @@ import java.util.Set;
  *
  * @author tux
  */
-public class CalculadoraSalarioLiquido {
+public class CalculadoraSalarioLiquido implements Calculadora {
 
-    /**
-     *
-     * @return
-     */
-    public List<Funcionario> executa() {
+    private List<Funcionario> funcionarios = new ArrayList<>();
 
-        List<Funcionario> funcionarios;
+    public CalculadoraSalarioLiquido() {
         funcionarios = criarFuncionarios();
-
-        return ordernar(funcionarios);
-    }
-
-    /**
-     * Desenvolva um metodo para cálculo do salário liquido dos funcionários.
-     * <p>
-     * (salário líquido = salário bruto – (soma dos descontos)).
-     * <p>
-     * O metodo deve apresentar a relação ordenada por salário líquido de modo
-     * decrescente.
-     *
-     */
-    private List<Funcionario> ordernar(List<Funcionario> c) {
-
-        if (c == null || c.isEmpty()) {
-            return c;
-        }
-
-        Comparator comparator = new Comparator<Funcionario>() {
-            @Override
-            public int compare(Funcionario f1, Funcionario f2) {
-                Double d2 = f2.getSalarioLiquido();
-                return d2.compareTo(f1.getSalarioLiquido());
-            }
-        };
-
-        Collections.sort(c, comparator);
-
-        return c;
     }
 
     private List<Funcionario> criarFuncionarios() {
+
         Funcionario funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva, funcionarioMateusDaSilva;
         funcionarioJoaoDaSilva = new Funcionario(1, "MalcomX");
         funcionarioMariaDaSilva = new Funcionario(2, "Maria da Silva");
@@ -94,8 +62,6 @@ public class CalculadoraSalarioLiquido {
         ));
         funcionarioMartaDaSilva.setDescontos(descontos);
 
-        List<Funcionario> funcionarios = new ArrayList<>();
-
         funcionarios.add(funcionarioJoaoDaSilva);
         funcionarios.add(funcionarioMariaDaSilva);
         funcionarios.add(funcionarioJesusDaSilva);
@@ -104,6 +70,17 @@ public class CalculadoraSalarioLiquido {
         Collections.shuffle(funcionarios);
 
         return funcionarios;
+    }
+
+    public void calcular() {
+        ConsumerFuncionario consumer = new ConsumerFuncionario();
+        funcionarios.stream().forEach(consumer);
+        listar();
+    }
+
+
+    private void listar() {
+        funcionarios.forEach(f -> System.out.println(f));
     }
 
 }
