@@ -56,7 +56,7 @@ public class Funcionario {
 
     @Override
     public String toString() {
-        return "Funcionario " + nm_cliente + ", salario liquido " + salarioLiquido;
+        return "Funcionario " + nm_cliente + ", salario liquido " + this.getSalarioLiquido();
     }
 
     private long id_cliente;

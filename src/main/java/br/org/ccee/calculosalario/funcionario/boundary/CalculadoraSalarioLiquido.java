@@ -2,7 +2,6 @@ package br.org.ccee.calculosalario.funcionario.boundary;
 
 import br.org.ccee.boundary.Calculadora;
 import br.org.ccee.calculosalario.desconto.entity.Desconto;
-import br.org.ccee.calculosalario.funcionario.control.ConsumerFuncionario;
 import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +9,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  *
@@ -67,17 +67,22 @@ public class CalculadoraSalarioLiquido implements Calculadora {
         funcionarios.add(funcionarioJesusDaSilva);
         funcionarios.add(funcionarioMartaDaSilva);
         funcionarios.add(funcionarioMateusDaSilva);
+        
         Collections.shuffle(funcionarios);
 
         return funcionarios;
     }
 
     public void calcular() {
-        ConsumerFuncionario consumer = new ConsumerFuncionario();
-        funcionarios.stream().forEach(consumer);
+        funcionarios.forEach((Funcionario f) -> {
+            Set<Desconto> descontos = new HashSet<>(10);
+            descontos.addAll(Arrays.asList(
+                    new Desconto(f.getId_cliente(), 1L, 288.00)
+            ));
+            f.setDescontos(descontos);
+        });
         listar();
     }
-
 
     private void listar() {
         funcionarios.forEach(f -> System.out.println(f));
