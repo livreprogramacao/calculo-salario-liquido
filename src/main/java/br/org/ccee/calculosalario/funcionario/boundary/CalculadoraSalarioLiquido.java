@@ -1,6 +1,8 @@
-package com.infoserver;
+package br.org.ccee.calculosalario.funcionario.boundary;
 
-import static com.infoserver.Funcionario.SALARIO_MINIMO_NACIONAL_2015;
+import br.org.ccee.calculosalario.desconto.entity.Desconto;
+import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
+import static br.org.ccee.calculosalario.funcionario.entity.Funcionario.SALARIO_MINIMO_NACIONAL_2015;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,7 +67,7 @@ public class CalculadoraSalarioLiquido {
         funcionarios.add(funcionarioMateusDaSilva);
         Collections.shuffle(funcionarios);
 
-        return listarFuncionarios(funcionarios);
+        return ordernar(funcionarios);
     }
 
     /**
@@ -77,7 +79,7 @@ public class CalculadoraSalarioLiquido {
      * decrescente.
      *
      */
-    private List<Funcionario> listarFuncionarios(List<Funcionario> c) {
+    private List<Funcionario> ordernar(List<Funcionario> c) {
 
         if (c == null || c.isEmpty()) {
             return c;

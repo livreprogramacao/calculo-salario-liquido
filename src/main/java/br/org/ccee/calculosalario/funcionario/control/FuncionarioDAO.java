@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.infoserver;
+package br.org.ccee.calculosalario.funcionario.control;
 
+import br.org.ccee.calculosalario.desconto.entity.Desconto;
+import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

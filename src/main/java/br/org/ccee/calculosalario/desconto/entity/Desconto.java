@@ -1,4 +1,4 @@
-package com.infoserver;
+package br.org.ccee.calculosalario.desconto.entity;
 
 /**
  *

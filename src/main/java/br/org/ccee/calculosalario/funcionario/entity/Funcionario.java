@@ -1,5 +1,6 @@
-package com.infoserver;
+package br.org.ccee.calculosalario.funcionario.entity;
 
+import br.org.ccee.calculosalario.desconto.entity.Desconto;
 import java.util.Set;
 
 /**
