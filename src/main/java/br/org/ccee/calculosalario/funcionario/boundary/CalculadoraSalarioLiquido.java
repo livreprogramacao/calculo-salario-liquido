@@ -2,6 +2,7 @@ package br.org.ccee.calculosalario.funcionario.boundary;
 
 import br.org.ccee.boundary.Calculadora;
 import br.org.ccee.calculosalario.desconto.entity.Desconto;
+import br.org.ccee.calculosalario.funcionario.control.FuncionarioDAO;
 import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +68,7 @@ public class CalculadoraSalarioLiquido implements Calculadora {
         funcionarios.add(funcionarioJesusDaSilva);
         funcionarios.add(funcionarioMartaDaSilva);
         funcionarios.add(funcionarioMateusDaSilva);
-        
+
         Collections.shuffle(funcionarios);
 
         return funcionarios;
@@ -75,12 +76,10 @@ public class CalculadoraSalarioLiquido implements Calculadora {
 
     public void calcular() {
         funcionarios.forEach((Funcionario f) -> {
-            Set<Desconto> descontos = new HashSet<>(10);
-            descontos.addAll(Arrays.asList(
-                    new Desconto(f.getId_cliente(), 1L, 288.00)
-            ));
-            f.setDescontos(descontos);
+            FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+            f.setDescontos(funcionarioDao.buscarDescontos(f));
         });
+
         listar();
     }
 

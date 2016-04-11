@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,7 +55,15 @@ public class FuncionarioDAO {
 
     private Connection getConn() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        return (Connection) DriverManager.getConnection("jdbc:mysql://localhost/jsf_curso", "root", "root");
+        return (Connection) DriverManager.getConnection("jdbc:mysql://localhost/rh", "root", "root");
+    }
+
+    public Set<Desconto> buscarDescontos(Funcionario f) {
+        Set<Desconto> descontos = new HashSet<>(10);
+        descontos.addAll(Arrays.asList(
+                new Desconto(f.getId_cliente(), 1L, 15.35 * f.getId_cliente())
+        ));
+        return descontos;
     }
 
 }

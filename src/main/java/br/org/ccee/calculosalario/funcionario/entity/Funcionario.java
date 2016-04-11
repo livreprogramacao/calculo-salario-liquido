@@ -24,6 +24,7 @@ public class Funcionario {
         this.id_cliente = id;
         this.nm_cliente = nome;
     }
+
     public Funcionario(long id, String nome, double salarioBruto) {
         this(id, nome);
         this.vl_salario_bruto = salarioBruto;
@@ -131,8 +132,9 @@ public class Funcionario {
         double totalDescontos = 0;
 
         if (this.descontos != null && !this.descontos.isEmpty()) {
-            totalDescontos = descontos.stream().map(
-                    (desconto) -> desconto.getVl_desconto()).reduce(totalDescontos, (accumulator, _item) -> accumulator + _item);
+            totalDescontos = descontos.stream()
+                    .map((desconto) -> desconto.getVl_desconto())
+                    .reduce(totalDescontos, (accumulator, _item) -> accumulator + _item);
         }
 
         salarioLiquido = this.getVl_salario_bruto() - totalDescontos;
