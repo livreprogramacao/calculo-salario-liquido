@@ -5,17 +5,31 @@
     <artifactId>CalculoSalarioLiquido</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
+    
+    <properties>
+        <version.javaee-web-api>7.0</version.javaee-web-api>
+        <version.junit>4.10</version.junit>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+            
     <dependencies>
+        <dependency>
+            <!--
+            Java EE Web Profile
+            Servlet 3, JSP, JSF 2, CDI, EJB 3.1, JTA, JPA 2, Bean Validation
+            -->
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>${version.javaee-web-api}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-    </properties>
 </project>
