@@ -90,15 +90,13 @@ public class CalculadoraSalarioLiquido implements Calculadora {
 
     @Override
     public double calcular() {
-        for (Funcionario funcionario : funcionarios) {
+        funcionarios.stream().forEach((funcionario) -> {
             double totalDescontos = 0;
-            for (Desconto desconto : funcionario.getDescontos()) {
-                totalDescontos += desconto.getVl_desconto();
-            }
+            totalDescontos = funcionario.getDescontos().stream().map((desconto) -> desconto.getVl_desconto()).reduce(totalDescontos, (accumulator, _item) -> accumulator + _item);
             double salarioLiquido = funcionario.getVl_salario_bruto() - totalDescontos;
 
             funcionario.setVl_salario_bruto(salarioLiquido);
-        }
+        });
 
         double salarioLiquido = funcionarios.stream().mapToDouble(f -> f.getVl_salario_bruto() - f.getDescontos().stream().mapToDouble(d -> d.getVl_desconto()).sum()).sum();
         return salarioLiquido;
