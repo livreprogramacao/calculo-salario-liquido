@@ -2,7 +2,6 @@ package br.org.ccee.calculosalario.funcionario.boundary;
 
 import br.org.ccee.boundary.Calculadora;
 import br.org.ccee.calculosalario.desconto.entity.Desconto;
-import br.org.ccee.calculosalario.funcionario.control.FuncionarioDAO;
 import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,16 +74,6 @@ public class CalculadoraSalarioLiquido implements Calculadora {
         return funcionarios;
     }
 
-    public void calcular() {
-        funcionarios.forEach((Funcionario f) -> {
-            FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-            f.setDescontos(funcionarioDao.buscarDescontos(f));
-        });
-
-        ordenar();
-        listar();
-    }
-
     private void listar() {
         funcionarios.forEach(f -> System.out.println(f));
     }
@@ -97,6 +86,22 @@ public class CalculadoraSalarioLiquido implements Calculadora {
         Function<Funcionario, Double> extraiSalarioLiquido = f -> f.getSalarioLiquido();
         Comparator<Funcionario> comparator = Comparator.comparing(extraiSalarioLiquido);
         funcionarios.sort(comparator.reversed());
+    }
+
+    @Override
+    public double calcular() {
+        for (Funcionario funcionario : funcionarios) {
+            double totalDescontos = 0;
+            for (Desconto desconto : funcionario.getDescontos()) {
+                totalDescontos += desconto.getVl_desconto();
+            }
+            double salarioLiquido = funcionario.getVl_salario_bruto() - totalDescontos;
+
+            funcionario.setVl_salario_bruto(salarioLiquido);
+        }
+
+        double salarioLiquido = funcionarios.stream().mapToDouble(f -> f.getVl_salario_bruto() - f.getDescontos().stream().mapToDouble(d -> d.getVl_desconto()).sum()).sum();
+        return salarioLiquido;
     }
 
 }
