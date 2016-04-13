@@ -1,7 +1,6 @@
 package br.org.ccee.calculosalario.funcionario.boundary;
 
 import br.org.ccee.boundary.Calculadora;
-import java.util.stream.DoubleStream;
 
 /**
  *
@@ -10,8 +9,12 @@ import java.util.stream.DoubleStream;
 public class CalculadoraDesconto implements Calculadora {
 
     @Override
-    public double calcular(DoubleStream valores) {
-        return valores.sum();
+    public double calcular(double[] valores) {
+        double total = 0;
+        for (int i = 0; i < valores.length; i++) {
+            total += valores[i];
+        }
+        return total;
     }
 
 }
