@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.DoubleStream;
 
 /**
  *
@@ -21,6 +22,7 @@ public class ListarSalarioDecrescente {
 
     public ListarSalarioDecrescente() {
         funcionarios = buscarFuncionarios();
+        calcularSalarioLiquido();
         ordenar(funcionarios);
     }
 
@@ -30,12 +32,16 @@ public class ListarSalarioDecrescente {
 
     private void calcularSalarioLiquido() {
         for (Funcionario funcionario : funcionarios) {
-            double[] valores = funcionario
+            DoubleStream descontosStream = funcionario
                     .getDescontos()
                     .stream()
-                    .mapToDouble(f -> f.getVl_desconto())
-                    .toArray();
+                    .mapToDouble(f -> f.getVl_desconto());
+
+            double[] valores = descontosStream.toArray();
+
             double salarioLiquido = funcionario.getVl_salario_bruto() - calculadoraDescontos.calcular(valores);
+
+            funcionario.setSalarioLiquido(salarioLiquido);
         }
     }
 
