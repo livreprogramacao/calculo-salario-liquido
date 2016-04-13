@@ -30,7 +30,11 @@ public class ListarSalarioDecrescente {
 
     private void calcularSalarioLiquido() {
         for (Funcionario funcionario : funcionarios) {
-            double[] valores = funcionario.getDescontos().stream().mapToDouble(f -> f.getVl_desconto()).toArray();
+            double[] valores = funcionario
+                    .getDescontos()
+                    .stream()
+                    .mapToDouble(f -> f.getVl_desconto())
+                    .toArray();
             double salarioLiquido = funcionario.getVl_salario_bruto() - calculadoraDescontos.calcular(valores);
         }
     }
