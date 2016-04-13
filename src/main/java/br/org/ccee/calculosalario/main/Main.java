@@ -1,8 +1,6 @@
 package br.org.ccee.calculosalario.main;
 
-import br.org.ccee.calculosalario.funcionario.boundary.CalculadoraSalarioLiquido;
-import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
-import java.util.List;
+import br.org.ccee.calculosalario.funcionario.boundary.ListarSalarioDecrescente;
 
 /**
  * Teste de Java
@@ -37,7 +35,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new CalculadoraSalarioLiquido().calcular();
+        new ListarSalarioDecrescente().listar();
     }
 
 }

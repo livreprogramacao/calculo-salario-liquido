@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author user
  */
-public class CalculadoraSalarioLiquidoTest {
+public class ListarSalarioDecrescenteTest {
     
-    public CalculadoraSalarioLiquidoTest() {
+    public ListarSalarioDecrescenteTest() {
     }
     
     @BeforeClass
@@ -38,12 +38,12 @@ public class CalculadoraSalarioLiquidoTest {
     }
 
     /**
-     * Test of calcular method, of class CalculadoraSalarioLiquido.
+     * Test of calcular method, of class ListarSalarioDecrescente.
      */
     @Test
     public void testCalcular() {
         System.out.println("calcular");
-        CalculadoraSalarioLiquido instance = new CalculadoraSalarioLiquido();
+        ListarSalarioDecrescente instance = new ListarSalarioDecrescente();
         instance.calcular();
     }
     

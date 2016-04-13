@@ -3,28 +3,49 @@ package br.org.ccee.calculosalario.funcionario.boundary;
 import br.org.ccee.boundary.Calculadora;
 import br.org.ccee.calculosalario.desconto.entity.Desconto;
 import br.org.ccee.calculosalario.funcionario.entity.Funcionario;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
+import java.util.stream.DoubleStream;
 
 /**
  *
  * @author tux
  */
-public class CalculadoraSalarioLiquido implements Calculadora {
+public class ListarSalarioDecrescente {
 
-    private List<Funcionario> funcionarios = new ArrayList<>();
+    private final Calculadora calculadoraDescontos = new CalculadoraDesconto();
+    private List<Funcionario> funcionarios;
 
-    public CalculadoraSalarioLiquido() {
-        funcionarios = criarFuncionarios();
+    public ListarSalarioDecrescente() {
+        funcionarios = buscarFuncionarios();
+        ordenar(funcionarios);
     }
 
-    private List<Funcionario> criarFuncionarios() {
+    public void listar() {
+        funcionarios.forEach(f -> System.out.println(f));
+    }
+
+    private void calcularSalarioLiquido() {
+        for (Funcionario funcionario : funcionarios) {
+            DoubleStream valores = funcionario
+                    .getDescontos()
+                    .stream()
+                    .mapToDouble(f -> f.getVl_desconto());
+            double salarioLiquido = funcionario.getVl_salario_bruto() - calculadoraDescontos.calcular(valores);
+        }
+    }
+
+    private void ordenar(List<Funcionario> funcionarios) {
+        funcionarios.sort((f1, f2) -> Double.compare(f2.getSalarioLiquido(), f1.getSalarioLiquido()));
+    }
+
+    private List<Funcionario> buscarFuncionarios() {
+
+        List<Funcionario> funcionarios = new LinkedList<>();
 
         Funcionario funcionarioJoaoDaSilva, funcionarioMariaDaSilva, funcionarioJesusDaSilva, funcionarioMartaDaSilva, funcionarioMateusDaSilva;
         funcionarioJoaoDaSilva = new Funcionario(1, "MalcomX");
@@ -72,34 +93,6 @@ public class CalculadoraSalarioLiquido implements Calculadora {
         Collections.shuffle(funcionarios);
 
         return funcionarios;
-    }
-
-    private void listar() {
-        funcionarios.forEach(f -> System.out.println(f));
-    }
-
-    private void ordenar() {
-        funcionarios.sort((f1, f2) -> Double.compare(f2.getSalarioLiquido(), f1.getSalarioLiquido()));
-    }
-
-    private void ordenarFunction() {
-        Function<Funcionario, Double> extraiSalarioLiquido = f -> f.getSalarioLiquido();
-        Comparator<Funcionario> comparator = Comparator.comparing(extraiSalarioLiquido);
-        funcionarios.sort(comparator.reversed());
-    }
-
-    @Override
-    public double calcular() {
-        funcionarios.stream().forEach((funcionario) -> {
-            double totalDescontos = 0;
-            totalDescontos = funcionario.getDescontos().stream().map((desconto) -> desconto.getVl_desconto()).reduce(totalDescontos, (accumulator, _item) -> accumulator + _item);
-            double salarioLiquido = funcionario.getVl_salario_bruto() - totalDescontos;
-
-            funcionario.setVl_salario_bruto(salarioLiquido);
-        });
-
-        double salarioLiquido = funcionarios.stream().mapToDouble(f -> f.getVl_salario_bruto() - f.getDescontos().stream().mapToDouble(d -> d.getVl_desconto()).sum()).sum();
-        return salarioLiquido;
     }
 
 }
