@@ -128,17 +128,6 @@ public class Funcionario {
      * @return the value of salarioLiquido
      */
     public double getSalarioLiquido() {
-
-        double totalDescontos = 0;
-
-        if (this.descontos != null && !this.descontos.isEmpty()) {
-            totalDescontos = descontos.stream()
-                    .map((desconto) -> desconto.getVl_desconto())
-                    .reduce(totalDescontos, (accumulator, _item) -> accumulator + _item);
-        }
-
-        salarioLiquido = this.getVl_salario_bruto() - totalDescontos;
-
         return salarioLiquido;
     }
 
@@ -147,7 +136,7 @@ public class Funcionario {
      *
      * @param salarioLiquido new value of salarioLiquido
      */
-    private final void setSalarioLiquido(double salarioLiquido) {
+    public void setSalarioLiquido(double salarioLiquido) {
         this.salarioLiquido = salarioLiquido;
     }
 
